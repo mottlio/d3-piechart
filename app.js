@@ -11,6 +11,23 @@ for(var i = 0; i < birthData.length; i++){
     }
 }
 
+//mapping continents to colors
+
 var colorScale = d3.scaleOrdinal()
                     .domain(continents)
-                    .range(d3.schemeCategory10)
+                    .range(d3.schemeCategory10);
+
+//moving the piechart to center of SVG - otherwise center in corner
+
+d3.select("svg")
+    .attr("width", width)
+    .attr("height", height)
+  .append("g")
+    .attr("transform", "translate(" + width / 2 + ", " + height / 2 + ")")
+    .classed("chart", true);
+
+//making a PIECHART
+
+var arcs = d3.pie()
+                .value(d => d.births)
+                (yearData);
