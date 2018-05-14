@@ -26,8 +26,10 @@ d3.select("svg")
     .attr("transform", "translate(" + width / 2 + ", " + height / 2 + ")")
     .classed("chart", true);
 
-//making a PIECHART
+//making a PIECHART - D3 translates data into angle values
 
 var arcs = d3.pie()
                 .value(d => d.births)
                 (yearData);
+
+// using d3.arc() method to translate JavaScript object into valid SVG path
