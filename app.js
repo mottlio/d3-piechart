@@ -33,3 +33,20 @@ var arcs = d3.pie()
                 (yearData);
 
 // using d3.arc() method to translate JavaScript object into valid SVG path
+
+var path = d3.arc()
+            .outerRadius(width / 2 - 10)
+            .innerRadius(width / 4);
+
+// use d3 data method to bind arcs to data elements, hop into 
+// the enter selection and for each arc append 
+
+d3.select(".chart")
+        .selectAll(".arc")
+        .data(arcs)
+        .enter()
+        .append("path")
+            .classed("arc", true)
+            .attr("fill", d => colorScale(d.data.continent))
+            .attr("stroke", "black")
+            .attr("d", path); // path is a function thet will be invodek once for each item and will return a d path command
