@@ -34,6 +34,8 @@ d3.select('input')
     .property('max', maxYear)
     .property('value', minYear)
 
+
+makeGraph(minYear)
 //making a PIECHART - D3 translates data into angle values
 
 var arcs = d3.pie()
@@ -58,3 +60,37 @@ d3.select(".chart")
             .attr("fill", d => colorScale(d.data.continent))
             .attr("stroke", "black")
             .attr("d", path); // path is a function thet will be invodek once for each item and will return a d path command
+
+
+// the UPDATE HELPER function
+
+function makeGraph(year){
+    var yearData = birthData.filter(d => d.year === year);
+    var arcs = d3.pie()
+                .value(d => d.births)
+                (yearData);
+
+// using d3.arc() method to translate JavaScript object into valid SVG path
+
+var path = d3.arc()
+            .outerRadius(width / 2 - 10)
+            .innerRadius(width / 4);
+
+var update = d3.select(".chart")
+                .selectAll(".arc")
+                .data(arcs);
+    update
+        .exit()
+        .remove();
+
+    update
+        .enter()
+        .append("path")
+            .classed("arc", true)
+        .merge(update)
+            .attr("fill", d => colorScale(d.data.continent))
+            .attr("stroke", "black")
+            .attr("d", path);
+
+
+}
