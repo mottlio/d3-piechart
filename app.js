@@ -71,6 +71,11 @@ function makeGraph(year){
     var yearData = birthData.filter(d => d.year === year);
     var arcs = d3.pie()
                 .value(d => d.births)
+                .sort(function(a, b){
+                    if (a.continent < b.continent) 
+                        return -1;
+                    else return a.births - b.births;
+                })
                 (yearData);
 
 // using d3.arc() method to translate JavaScript object into valid SVG path
