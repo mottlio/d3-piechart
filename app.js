@@ -1,4 +1,5 @@
 var minYear = d3.min(birthData, d => d.year);
+var maxYear = d3.max(birthData, d => d.year);
 var width = 600;
 var height = 600;
 var yearData = birthData.filter(d => d.year === minYear);
@@ -25,6 +26,13 @@ d3.select("svg")
   .append("g")
     .attr("transform", "translate(" + width / 2 + ", " + height / 2 + ")")
     .classed("chart", true);
+
+//INPUT - range
+
+d3.select('input')
+    .property('min', minYear)
+    .property('max', maxYear)
+    .property('value', minYear)
 
 //making a PIECHART - D3 translates data into angle values
 
