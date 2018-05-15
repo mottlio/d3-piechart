@@ -33,6 +33,9 @@ d3.select('input')
     .property('min', minYear)
     .property('max', maxYear)
     .property('value', minYear)
+    .on("input", function(){
+        makeGraph(+d3.event.target.value);
+    })
 
 
 makeGraph(minYear)
@@ -74,7 +77,9 @@ function makeGraph(year){
 
 var path = d3.arc()
             .outerRadius(width / 2 - 10)
-            .innerRadius(width / 4);
+            .innerRadius(width / 4)
+            .padAngle(0.02) // set padding between arcs - nice effect
+            .cornerRadius(20); // round the edges of the arcs
 
 var update = d3.select(".chart")
                 .selectAll(".arc")
